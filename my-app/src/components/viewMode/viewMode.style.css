@@ -1,0 +1,28 @@
+.view-mode{
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+
+.info-sub{
+    display: flex;
+    flex-direction: column;
+}
+
+.icons{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    font-size: larger;
+}
+
+.icon{
+    margin: 10px;
+}

@@ -1,0 +1,8 @@
+.accord{
+    margin-top: 20px;
+}
+
+.profile-image > img{
+    margin: 0 10px;
+    border-radius: 50%;
+}

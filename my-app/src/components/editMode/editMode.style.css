@@ -1,0 +1,6 @@
+.icons{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    font-size: larger;
+}
