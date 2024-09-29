@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import'./viewMode.style.css';
 import { MdDelete } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { CelebrityConext } from '../../context/celebrity.context';
 import { CelebContextInterface, CelebInterface } from '../../utility/model';
 import { currentAge } from '../../utility/calFunction';
+import DialogBox from '../dialogBox/dialogBox.component';
 
 interface Props{
   item: CelebInterface,
@@ -13,7 +14,9 @@ interface Props{
 
 
 function ViewMode({ item, toggleMode }: Props) {
-  const { celebData, setCelebData } = useContext(CelebrityConext) as CelebContextInterface;
+  
+  const [open, setOpen] = useState<boolean>(false);
+  const [deleteItem, setDeleteItem] = useState<boolean>(false);
 
   return (
     <div className="view-mode">
@@ -46,11 +49,7 @@ function ViewMode({ item, toggleMode }: Props) {
           }}
           onClick={() => {
             //dailogue box asking to delete or not
-            
-            const newCelebData = celebData.filter((celeb) =>
-              celeb.id === item.id ? false : true
-            );
-            setCelebData(newCelebData);
+            setOpen(true);
           }}
         />
         <MdModeEditOutline
@@ -61,6 +60,7 @@ function ViewMode({ item, toggleMode }: Props) {
           onClick={toggleMode} 
         />
       </div>
+      <DialogBox open={open} setOpen={setOpen} id={item.id}/>
     </div>
   );
 }
