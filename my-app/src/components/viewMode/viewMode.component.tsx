@@ -2,8 +2,7 @@ import React, { useContext, useState } from 'react'
 import'./viewMode.style.css';
 import { MdDelete } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
-import { CelebrityConext } from '../../context/celebrity.context';
-import { CelebContextInterface, CelebInterface } from '../../utility/model';
+import { CelebInterface } from '../../utility/model';
 import { currentAge } from '../../utility/calFunction';
 import DialogBox from '../dialogBox/dialogBox.component';
 
@@ -14,9 +13,7 @@ interface Props{
 
 
 function ViewMode({ item, toggleMode }: Props) {
-  
   const [open, setOpen] = useState<boolean>(false);
-  const [deleteItem, setDeleteItem] = useState<boolean>(false);
 
   return (
     <div className="view-mode">

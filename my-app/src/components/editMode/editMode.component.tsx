@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import './editMode.style.css';
 import { CelebrityConext } from '../../context/celebrity.context';
 import { NativeSelect} from '@mui/material';
@@ -6,6 +6,7 @@ import { IoCloseCircleSharp } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
 import { currentAge } from '../../utility/calFunction';
 import { CelebContextInterface, CelebInterface } from '../../utility/model';
+import VaildationDailog from '../validationDailog/vaildationDailog.component';
 
 interface Props{
     item: CelebInterface,
@@ -20,23 +21,45 @@ function EditMode({item, toggleMode}: Props) {
     const [country, setCountry] = useState<string>(item.country);
     const [description, setDescription] = useState<string>(item.description);
 
+    const [open, setOpen] = useState<boolean>(false);
+    const [validationMessage, setValidationMessage] = useState<string[]>([]);
+
     const handleSubmit = () => {
 
         //validation here
+        let message: string[] = [];
         const newItem = item;
-        newItem.dob = dob.toString();
+
+        //validate dob
+        if(parseInt(dob)<=0)
+            message.push("Date of birth cannot be less than or eqaual to 0");
+        else
+            newItem.dob = dob.toString();
+
         newItem.gender = gender;
-        newItem.country = country;
+
+        //validate country
+        if(/\d/.test(country))
+            message.push("Enter valid country name");
+        else
+            newItem.country = country;
         newItem.description = description;
 
-        const newCelebData = celebData;
-        newCelebData.forEach(data => {
-            if(data.id === item.id){
-                data = newItem;
-            }
-        })
-        setCelebData(newCelebData);
-        toggleMode();
+        if(message.length === 0){
+            const newCelebData = celebData;
+            newCelebData.forEach(data => {
+                if(data.id === item.id){
+                    data = newItem;
+                }
+            })
+            setCelebData(newCelebData);
+            toggleMode();
+        }
+        else{
+            setValidationMessage(message);
+            setOpen(true);
+        }
+
     }
 
     return (
@@ -90,6 +113,7 @@ function EditMode({item, toggleMode}: Props) {
                 <IoCloseCircleSharp style={{"color": "red"}} className="icon" onClick={() => toggleMode()}/>
                 <FaCheckCircle style={{"color": "green"}} className="icon" onClick={handleSubmit}/>
             </div>
+            <VaildationDailog open={open} setOpen={setOpen} validationMessage={validationMessage}/>
         </div>
     )
 }

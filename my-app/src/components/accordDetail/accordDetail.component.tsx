@@ -5,15 +5,13 @@ import { CelebInterface } from '../../utility/model';
 import ViewMode from '../viewMode/viewMode.component';
 
 interface Props{
-    item: CelebInterface
+    item: CelebInterface,
+    editMode: boolean,
+    toggleMode: () => void
 }
 
-function AccordDetail({item}: Props){
-    const [editMode, setEditMode] = useState<boolean>(false);
+function AccordDetail({item, editMode, toggleMode}: Props){
 
-    const toggleMode = () => {
-        setEditMode(prev => !prev);
-    }
 
     return (
         <>
